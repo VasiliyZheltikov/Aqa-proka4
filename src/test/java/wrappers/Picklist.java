@@ -11,10 +11,8 @@ public class Picklist {
     public Picklist(WebElement webElement) {
         this.webElement = webElement;
     }
-
-
-    public void select(String option) {
+    public void select(int optionNum) {
         $(webElement).click(); // открытые выпадающего списка
-        $x(String.format("//option[contains(text(), '%s')]", option)).click();
+        $x(String.format("//select[@id='country']/option[%s]", optionNum)).click();
     }
 }

@@ -4,10 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.BeforeMethod;
+import org.testng.asserts.SoftAssert;
 import pages.FormsPage;
 
 public class BaseTest {
 
+    SoftAssert softAssert;
     FormsPage formsPage;
 
     @BeforeMethod(alwaysRun = true)
@@ -23,6 +25,8 @@ public class BaseTest {
         options.addArguments("--disable-popup-blocking");
         options.addArguments("--disable-infobars");
 
+        softAssert = new SoftAssert();
         formsPage = new FormsPage();
+
     }
 }
