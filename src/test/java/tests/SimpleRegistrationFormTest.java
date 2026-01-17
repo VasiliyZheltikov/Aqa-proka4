@@ -26,12 +26,18 @@ public class SimpleRegistrationFormTest extends BaseTest {
 
     Faker faker = new Faker();
 
-    @DataProvider(name = "Inputs data for register form")
+    @DataProvider(name = "Negative inputs data for register form")
     public Object[][] inputsValues() {
         return new Object[][]{
-            {"", faker.internet().emailAddress(), faker.internet().password(), USERNAME}, // without Username*
-            {faker.name().name(), "", faker.internet().password(), EMAIL}, // without Email*
-            {faker.name().name(), faker.internet().emailAddress(), "", PASSWORD}, // without Password*
+            {"", faker.internet().emailAddress(), faker.internet().password(), true, true, USERNAME},
+            // without Username*
+            {faker.name().name(), "", faker.internet().password(), true, true, EMAIL}, // without Email*
+            {faker.name().name(), faker.internet().emailAddress(), "", true, true, PASSWORD}, // without Password*
+            {faker.name().name(), faker.internet().emailAddress(), faker.internet().password(), false, true, COUNTRY},
+            // without Country*
+            {faker.name().name(), faker.internet().emailAddress(), faker.internet().password(), true, false,
+                AGREEMENT_CHECKBOX},
+            // without Checkbox*
         };
     }
 
@@ -50,15 +56,25 @@ public class SimpleRegistrationFormTest extends BaseTest {
             "Ошибка при отправке формы регистрации");
     }
 
-    @Test(dataProvider = "Inputs data for register form")
-    @Description("Попытка отправки формы без заполнения полей Username, Password, Email")
-    public void registerWithSomeEmptyElement(String username, String email, String password, WebElement webElement) {
+    @Test(dataProvider = "Negative inputs data for register form")
+    @Description("Попытка отправки формы без заполнения каждого из обязательных полей")
+    public void registerWithSomeEmptyElement(
+        String username,
+        String email,
+        String password,
+        boolean isCountrySelected,
+        boolean isCheckboxChecked,
+        WebElement webElement) {
         formsPage.open();
         new Inputs(USERNAME).write(username);
         new Inputs(EMAIL).write(email);
         new Inputs(PASSWORD).write(password);
-        new Picklist(COUNTRY).select(2);
-        new Checkboxes(AGREEMENT_CHECKBOX).activateCheckbox();
+        if (isCountrySelected) {
+            new Picklist(COUNTRY).select(2);
+        }
+        if (isCheckboxChecked) {
+            new Checkboxes(AGREEMENT_CHECKBOX).activateCheckbox();
+        }
         new Button(REGISTER_BUTTON).clickButton();
         softAssert.assertFalse(FORM_RESULT.isDisplayed(),
             "Отобразился статус отправки формы"); // статус отправки формы не отобразился
