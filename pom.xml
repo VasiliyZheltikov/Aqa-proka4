@@ -19,6 +19,8 @@
     <allure-maven.version>2.12.0</allure-maven.version>
     <allure-selenide.version>2.29.1</allure-selenide.version>
     <javafaker.version>1.0.2</javafaker.version>
+    <log4j-core.version>2.24.2</log4j-core.version>
+    <jackson-dataformat-yaml.version>2.12.3</jackson-dataformat-yaml.version>
   </properties>
 
   <dependencyManagement>
@@ -58,7 +60,18 @@
       <artifactId>javafaker</artifactId>
       <version>${javafaker.version}</version>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-selenide -->
+    <!-- Source: https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>${log4j-core.version}</version>
+    </dependency>
+    <!-- Source: https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.dataformat</groupId>
+      <artifactId>jackson-dataformat-yaml</artifactId>
+      <version>${jackson-dataformat-yaml.version}</version>
+    </dependency>
   </dependencies>
 
   <build>
