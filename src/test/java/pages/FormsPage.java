@@ -57,6 +57,7 @@ public class FormsPage extends BasePage {
         String username,
         String email,
         String password,
+        String country,
         boolean isCountrySelected,
         boolean isCheckboxChecked
     ) {
@@ -64,7 +65,7 @@ public class FormsPage extends BasePage {
         new Inputs(EMAIL).write(email);
         new Inputs(PASSWORD).write(password);
         if (isCountrySelected) {
-            new Picklist(COUNTRY).select(2);
+            new Picklist(COUNTRY).select(country);
         }
         if (isCheckboxChecked) {
             new Checkboxes(AGREEMENT_CHECKBOX).activateCheckbox();

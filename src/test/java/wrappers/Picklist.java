@@ -1,7 +1,8 @@
 package wrappers;
 
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$x;
+
 import org.openqa.selenium.WebElement;
 
 public class Picklist {
@@ -11,8 +12,9 @@ public class Picklist {
     public Picklist(WebElement webElement) {
         this.webElement = webElement;
     }
-    public void select(int optionNum) {
+
+    public void select(String valueText) {
         $(webElement).click(); // открытые выпадающего списка
-        $x(String.format("//select[@id='country']/option[%s]", optionNum)).click();
+        $(byText(valueText)).click();
     }
 }
