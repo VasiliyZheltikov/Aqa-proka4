@@ -14,15 +14,17 @@ import org.testng.ITestResult;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 import pages.*;
+import utils.TestListener;
 
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 
+@Listeners(TestListener.class)
 public class BaseTest {
 
     SoftAssert softAssert;
     FormsPage formsPage;
 
-    @BeforeMethod(alwaysRun = true)
+    @BeforeMethod(alwaysRun = true, description = "Настройка драйвера")
     public void setup() {
         Configuration.screenshots = true;
         Configuration.savePageSource = true;
@@ -46,7 +48,7 @@ public class BaseTest {
         formsPage = new FormsPage();
     }
 
-    @AfterMethod(alwaysRun = true)
+    @AfterMethod(alwaysRun = true, description = "Закрытие браузера")
     public void tearDown(ITestResult result) {
         if(ITestResult.FAILURE == result.getStatus()){
             byte[] screen = Selenide.screenshot(OutputType.BYTES);
