@@ -13,49 +13,48 @@ public class SimpleRegistrationFormTest extends BaseTest {
 
     @DataProvider(name = "Negative inputs data for register form")
     public Object[][] inputsValues() {
-        PersonData personData = PersonFactory.getPersonData();
         return new Object[][]{
             {
                 "", // without required Username
-                personData.getEmail(),
-                personData.getPassword(),
-                personData.getCountry(),
-                personData.isCountrySelected(),
-                personData.isCheckboxChecked()
+                PersonFactory.getPersonData().getEmail(),
+                PersonFactory.getPersonData().getPassword(),
+                PersonFactory.getPersonData().getCountry(),
+                PersonFactory.getPersonData().isCountrySelected(),
+                PersonFactory.getPersonData().isCheckboxChecked()
             },
 
             {
-                personData.getUsername(),
+                PersonFactory.getPersonData().getUsername(),
                 "", // without required Email
-                personData.getPassword(),
-                personData.getCountry(),
-                personData.isCountrySelected(),
-                personData.isCheckboxChecked()
+                PersonFactory.getPersonData().getPassword(),
+                PersonFactory.getPersonData().getCountry(),
+                PersonFactory.getPersonData().isCountrySelected(),
+                PersonFactory.getPersonData().isCheckboxChecked()
             },
 
             {
-                personData.getUsername(),
-                personData.getEmail(),
+                PersonFactory.getPersonData().getUsername(),
+                PersonFactory.getPersonData().getEmail(),
                 "", // without required Password
-                personData.getCountry(),
-                personData.isCountrySelected(),
-                personData.isCheckboxChecked()
+                PersonFactory.getPersonData().getCountry(),
+                PersonFactory.getPersonData().isCountrySelected(),
+                PersonFactory.getPersonData().isCheckboxChecked()
             },
             {
-                personData.getUsername(),
-                personData.getEmail(),
-                personData.getPassword(),
-                personData.getCountry(),
+                PersonFactory.getPersonData().getUsername(),
+                PersonFactory.getPersonData().getEmail(),
+                PersonFactory.getPersonData().getPassword(),
+                PersonFactory.getPersonData().getCountry(),
                 false, // without required Country
-                personData.isCheckboxChecked()
+                PersonFactory.getPersonData().isCheckboxChecked()
             },
 
             {
-                personData.getUsername(),
-                personData.getEmail(),
-                personData.getPassword(),
-                personData.getCountry(),
-                personData.isCountrySelected(),
+                PersonFactory.getPersonData().getUsername(),
+                PersonFactory.getPersonData().getEmail(),
+                PersonFactory.getPersonData().getPassword(),
+                PersonFactory.getPersonData().getCountry(),
+                PersonFactory.getPersonData().isCountrySelected(),
                 false // without required Checkbox
             },
         };
