@@ -1,5 +1,8 @@
 package tests;
 
+import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
 import java.util.HashMap;
 import java.util.Map;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -14,6 +17,8 @@ public class BaseTest {
 
     @BeforeMethod(alwaysRun = true)
     public void setup() {
+        Configuration.screenshots = true;
+        Configuration.savePageSource = true;
         ChromeOptions options = new ChromeOptions();
         Map<String, Object> chromePrefs = new HashMap<>();
         chromePrefs.put("credentials_enable_service", false);
@@ -24,6 +29,11 @@ public class BaseTest {
         options.addArguments("--disable-notifications");
         options.addArguments("--disable-popup-blocking");
         options.addArguments("--disable-infobars");
+        options.addArguments("--start-maximized");
+
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
+            .screenshots(true)
+            .savePageSource(true));
 
         softAssert = new SoftAssert();
         formsPage = new FormsPage();

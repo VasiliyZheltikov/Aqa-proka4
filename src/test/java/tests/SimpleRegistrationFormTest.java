@@ -1,7 +1,6 @@
 package tests;
 
 import static com.codeborne.selenide.Selectors.byId;
-import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
 
 import dto.PersonData;
@@ -71,6 +70,7 @@ public class SimpleRegistrationFormTest extends BaseTest {
         PersonData personData = PersonFactory.getPersonData();
         formsPage.open()
             .isPageOpened()
+            .formResultIsNotDisplaying()
             .fillRegistrationForm(
                 personData.getUsername(),
                 personData.getEmail(),
@@ -79,7 +79,7 @@ public class SimpleRegistrationFormTest extends BaseTest {
                 personData.isCountrySelected(),
                 personData.isCheckboxChecked()
             );
-        Assert.assertTrue($(withText("Форма успешно отправлена!")).isDisplayed(),
+        Assert.assertTrue($(byId("formResult")).isDisplayed(),
             "Ошибка при отправке формы регистрации");
     }
 
@@ -94,6 +94,7 @@ public class SimpleRegistrationFormTest extends BaseTest {
         boolean isCheckboxChecked) {
         formsPage.open()
             .isPageOpened()
+            .formResultIsNotDisplaying()
             .fillRegistrationForm(
                 username,
                 email,
