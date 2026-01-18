@@ -1,5 +1,5 @@
 package tests;
 
-public class ValidationFormTest {
+public class ValidationFormTest extends BaseTest{
 
 }
