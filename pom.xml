@@ -23,6 +23,7 @@
     <jackson-dataformat-yaml.version>2.12.3</jackson-dataformat-yaml.version>
     <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
     <aspectj.version>1.9.20.1</aspectj.version>
+    <suiteXmlFile>src/test/resources/AllTests.xml</suiteXmlFile>
   </properties>
 
   <dependencyManagement>
@@ -107,6 +108,9 @@
           <argLine>
             -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
           </argLine>
+          <suiteXmlFiles>
+            <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
+          </suiteXmlFiles>
         </configuration>
       </plugin>
     </plugins>

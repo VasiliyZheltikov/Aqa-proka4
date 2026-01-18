@@ -5,9 +5,19 @@
     <listener class-name="utils.TestListener"/>
     <listener class-name="utils.AnnotationTransformer"/>
   </listeners>
-  <test name="Smoke Regression Testing">
+  <test name="Simple Registration Form">
     <classes>
       <class name="tests.SimpleRegistrationFormTest"/>
+    </classes>
+    <groups>
+      <run>
+        <include name="smoke"/>
+      </run>
+    </groups>
+  </test> <!-- Test -->
+  <test name="Form With Validation">
+    <classes>
+      <class name="tests.ValidationFormTest"/>
     </classes>
     <groups>
       <run>
