@@ -22,7 +22,8 @@ import static com.codeborne.selenide.Selenide.closeWebDriver;
 public class BaseTest {
 
     SoftAssert softAssert;
-    FormsPage formsPage;
+    SimpleRegistrationFormPage simpleRegistrationFormPage;
+    FormWithValidationPage formWithValidationPage;
 
     @BeforeMethod(alwaysRun = true, description = "Настройка драйвера")
     public void setup() {
@@ -36,7 +37,8 @@ public class BaseTest {
             .savePageSource(true));
 
         softAssert = new SoftAssert();
-        formsPage = new FormsPage();
+        simpleRegistrationFormPage = new SimpleRegistrationFormPage();
+        formWithValidationPage = new FormWithValidationPage();
     }
 
     private static ChromeOptions getOptions() { // Настройки драйвера

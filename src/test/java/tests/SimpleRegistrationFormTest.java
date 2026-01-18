@@ -69,7 +69,7 @@ public class SimpleRegistrationFormTest extends BaseTest {
     @Description("Проверка успешной отправки формы со всеми заполненными полями")
     public void registerWithFullFilledForm() {
         PersonData personData = PersonFactory.getPersonData();
-        formsPage.open()
+        simpleRegistrationFormPage.open()
             .isPageOpened()
             .fillRegistrationForm(
                 personData.getUsername(),
@@ -79,7 +79,7 @@ public class SimpleRegistrationFormTest extends BaseTest {
                 personData.isCountrySelected(),
                 personData.isCheckboxChecked()
             );
-        Assert.assertTrue(formsPage.isFormResultDisplayed(),
+        Assert.assertTrue(simpleRegistrationFormPage.isFormResultDisplayed(),
             "Ошибка при отправке формы регистрации");
     }
 
@@ -97,7 +97,7 @@ public class SimpleRegistrationFormTest extends BaseTest {
         String country,
         boolean isCountrySelected,
         boolean isCheckboxChecked) {
-        formsPage.open()
+        simpleRegistrationFormPage.open()
             .isPageOpened()
             .fillRegistrationForm(
                 username,
@@ -107,7 +107,7 @@ public class SimpleRegistrationFormTest extends BaseTest {
                 isCountrySelected,
                 isCheckboxChecked
             );
-        Assert.assertFalse(formsPage.isFormResultDisplayed(),
+        Assert.assertFalse(simpleRegistrationFormPage.isFormResultDisplayed(),
             "Отобразился статус отправки формы"); // статус отправки формы не отобразился
     }
 }
