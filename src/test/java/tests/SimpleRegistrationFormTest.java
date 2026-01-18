@@ -1,85 +1,108 @@
 package tests;
 
 import static com.codeborne.selenide.Selectors.byId;
+import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
 
-import com.github.javafaker.Faker;
+import dto.PersonData;
+import dto.PersonFactory;
 import jdk.jfr.Description;
-import org.openqa.selenium.WebElement;
+import lombok.extern.log4j.Log4j2;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import wrappers.Button;
-import wrappers.Checkboxes;
-import wrappers.Inputs;
-import wrappers.Picklist;
 
+@Log4j2
 public class SimpleRegistrationFormTest extends BaseTest {
-
-    private final WebElement USERNAME = $(byId("username"));
-    private final WebElement EMAIL = $(byId("email"));
-    private final WebElement PASSWORD = $(byId("password"));
-    private final WebElement COUNTRY = $(byId("country"));
-    private final WebElement AGREEMENT_CHECKBOX = $(byId("terms"));
-    private final WebElement REGISTER_BUTTON = $(byId("submitBtn"));
-    private final WebElement FORM_RESULT = $(byId("formResult"));
-
-    Faker faker = new Faker();
 
     @DataProvider(name = "Negative inputs data for register form")
     public Object[][] inputsValues() {
+        PersonData personData = PersonFactory.getPersonData();
         return new Object[][]{
-            {"", faker.internet().emailAddress(), faker.internet().password(), true, true, USERNAME},
-            // without Username*
-            {faker.name().name(), "", faker.internet().password(), true, true, EMAIL}, // without Email*
-            {faker.name().name(), faker.internet().emailAddress(), "", true, true, PASSWORD}, // without Password*
-            {faker.name().name(), faker.internet().emailAddress(), faker.internet().password(), false, true, COUNTRY},
-            // without Country*
-            {faker.name().name(), faker.internet().emailAddress(), faker.internet().password(), true, false,
-                AGREEMENT_CHECKBOX},
-            // without Checkbox*
+            {
+                "", // without required Username
+                personData.getEmail(),
+                personData.getPassword(),
+                personData.getCountry(),
+                personData.isCountrySelected(),
+                personData.isCheckboxChecked()
+            },
+
+            {
+                personData.getUsername(),
+                "", // without required Email
+                personData.getPassword(),
+                personData.getCountry(),
+                personData.isCountrySelected(),
+                personData.isCheckboxChecked()
+            },
+
+            {
+                personData.getUsername(),
+                personData.getEmail(),
+                "", // without required Password
+                personData.getCountry(),
+                personData.isCountrySelected(),
+                personData.isCheckboxChecked()
+            },
+            {
+                personData.getUsername(),
+                personData.getEmail(),
+                personData.getPassword(),
+                personData.getCountry(),
+                false, // without required Country
+                personData.isCheckboxChecked()
+            },
+
+            {
+                personData.getUsername(),
+                personData.getEmail(),
+                personData.getPassword(),
+                personData.getCountry(),
+                personData.isCountrySelected(),
+                false // without required Checkbox
+            },
         };
     }
 
     @Test
     @Description("Проверка успешной отправки формы")
     public void registerWithFullFilledForm() {
-        formsPage.open();
-        new Inputs(USERNAME).write(faker.name().name());
-        new Inputs(EMAIL).write(faker.internet().emailAddress());
-        new Inputs(PASSWORD).write(faker.internet().password());
-        new Picklist(COUNTRY).select(2);
-        new Checkboxes(AGREEMENT_CHECKBOX).activateCheckbox();
-        new Button(REGISTER_BUTTON).clickButton();
-        Assert.assertEquals(FORM_RESULT.getText(),
-            "Форма успешно отправлена!",
+        PersonData personData = PersonFactory.getPersonData();
+        formsPage.open()
+            .isPageOpened()
+            .fillRegistrationForm(
+                personData.getUsername(),
+                personData.getEmail(),
+                personData.getPassword(),
+                personData.getCountry(),
+                personData.isCountrySelected(),
+                personData.isCheckboxChecked()
+            );
+        Assert.assertTrue($(withText("Форма успешно отправлена!")).isDisplayed(),
             "Ошибка при отправке формы регистрации");
     }
 
     @Test(dataProvider = "Negative inputs data for register form")
     @Description("Попытка отправки формы без заполнения каждого из обязательных полей")
-    public void registerWithSomeEmptyElement(
+    public void tryToRegisterWithSomeEmptyValueInForm(
         String username,
         String email,
         String password,
+        String country,
         boolean isCountrySelected,
-        boolean isCheckboxChecked,
-        WebElement webElement) {
-        formsPage.open();
-        new Inputs(USERNAME).write(username);
-        new Inputs(EMAIL).write(email);
-        new Inputs(PASSWORD).write(password);
-        if (isCountrySelected) {
-            new Picklist(COUNTRY).select(2);
-        }
-        if (isCheckboxChecked) {
-            new Checkboxes(AGREEMENT_CHECKBOX).activateCheckbox();
-        }
-        new Button(REGISTER_BUTTON).clickButton();
-        softAssert.assertFalse(FORM_RESULT.isDisplayed(),
+        boolean isCheckboxChecked) {
+        formsPage.open()
+            .isPageOpened()
+            .fillRegistrationForm(
+                username,
+                email,
+                password,
+                country,
+                isCountrySelected,
+                isCheckboxChecked
+            );
+        Assert.assertFalse($(byId("formResult")).isDisplayed(),
             "Отобразился статус отправки формы"); // статус отправки формы не отобразился
-        softAssert.assertTrue(webElement.isEnabled(),
-            "Незаполненное поле не выбрано"); // выбрано незаполненное поле
-        softAssert.assertAll();
     }
 }

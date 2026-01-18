@@ -19,6 +19,10 @@
     <allure-maven.version>2.12.0</allure-maven.version>
     <allure-selenide.version>2.29.1</allure-selenide.version>
     <javafaker.version>1.0.2</javafaker.version>
+    <log4j-core.version>2.24.2</log4j-core.version>
+    <jackson-dataformat-yaml.version>2.12.3</jackson-dataformat-yaml.version>
+    <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
+    <aspectj.version>1.9.20.1</aspectj.version>
   </properties>
 
   <dependencyManagement>
@@ -58,7 +62,29 @@
       <artifactId>javafaker</artifactId>
       <version>${javafaker.version}</version>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-selenide -->
+    <!-- Source: https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>${log4j-core.version}</version>
+    </dependency>
+    <!-- Source: https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.dataformat</groupId>
+      <artifactId>jackson-dataformat-yaml</artifactId>
+      <version>${jackson-dataformat-yaml.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.qameta.allure</groupId>
+      <artifactId>allure-testng</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <!-- Source: https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+      <version>${aspectj.version}</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -67,6 +93,16 @@
         <groupId>io.qameta.allure</groupId>
         <artifactId>allure-maven</artifactId>
         <version>${allure-maven.version}</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven-surefire-plugin.version}</version>
+        <configuration>
+          <argLine>
+            -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+          </argLine>
+        </configuration>
       </plugin>
     </plugins>
   </build>
