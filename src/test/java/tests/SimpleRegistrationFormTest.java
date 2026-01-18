@@ -1,8 +1,5 @@
 package tests;
 
-import static com.codeborne.selenide.Selectors.byId;
-import static com.codeborne.selenide.Selenide.$;
-
 import dto.PersonData;
 import dto.PersonFactory;
 import jdk.jfr.Description;
@@ -64,8 +61,12 @@ public class SimpleRegistrationFormTest extends BaseTest {
         };
     }
 
-    @Test
-    @Description("Проверка успешной отправки формы")
+    @Test(
+        testName = "Проверка успешной отправки формы",
+        description = "Проверка успешной отправки формы",
+        groups = {"smoke"}
+    )
+    @Description("Проверка успешной отправки формы со всеми заполненными полями")
     public void registerWithFullFilledForm() {
         PersonData personData = PersonFactory.getPersonData();
         formsPage.open()
@@ -78,11 +79,16 @@ public class SimpleRegistrationFormTest extends BaseTest {
                 personData.isCountrySelected(),
                 personData.isCheckboxChecked()
             );
-        Assert.assertTrue($(byId("formResult")).isDisplayed(),
+        Assert.assertTrue(formsPage.isFormResultDisplayed(),
             "Ошибка при отправке формы регистрации");
     }
 
-    @Test(dataProvider = "Negative inputs data for register form")
+    @Test(
+        dataProvider = "Negative inputs data for register form",
+        testName = "Попытка отправки формы без обязательного атрибута",
+        description = "Попытка отправки формы без обязательного атрибута",
+        groups = {"negative"}
+    )
     @Description("Попытка отправки формы без заполнения каждого из обязательных полей")
     public void tryToRegisterWithSomeEmptyValueInForm(
         String username,
@@ -101,7 +107,7 @@ public class SimpleRegistrationFormTest extends BaseTest {
                 isCountrySelected,
                 isCheckboxChecked
             );
-        Assert.assertFalse($(byId("formResult")).isDisplayed(),
+        Assert.assertFalse(formsPage.isFormResultDisplayed(),
             "Отобразился статус отправки формы"); // статус отправки формы не отобразился
     }
 }
