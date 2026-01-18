@@ -84,4 +84,9 @@ public class FormsPage extends BasePage {
         log.info("Кнопка отправки формы нажата");
         return this;
     }
+
+    @Step("Проверка отображения уведомления об успешной отправке формы")
+    public boolean isFormResultDisplayed() {
+        return $(byId("formResult")).isDisplayed();
+    }
 }
