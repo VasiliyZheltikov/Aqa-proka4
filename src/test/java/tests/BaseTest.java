@@ -39,6 +39,7 @@ public class BaseTest {
         options.addArguments("--disable-popup-blocking");
         options.addArguments("--disable-infobars");
         options.addArguments("--start-maximized");
+        options.addArguments("--headless");
 
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
             .screenshots(true)
