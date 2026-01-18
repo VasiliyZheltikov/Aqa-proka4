@@ -85,6 +85,11 @@
       <artifactId>aspectjweaver</artifactId>
       <version>${aspectj.version}</version>
     </dependency>
+    <dependency>
+      <groupId>io.qameta.allure</groupId>
+      <artifactId>allure-selenide</artifactId>
+      <version>${allure-selenide.version}</version>
+    </dependency>
   </dependencies>
 
   <build>

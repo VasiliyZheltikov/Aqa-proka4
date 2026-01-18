@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Smoke Tests">
+  <listeners>
+    <listener class-name="utils.TestListener"/>
+    <listener class-name="utils.AnnotationTransformer"/>
+  </listeners>
+  <test name="Registration Form">
+    <classes>
+      <class name="tests.SimpleRegistrationFormTest"/>
+    </classes>
+    <groups>
+      <run>
+        <include name="smoke"/>
+      </run>
+    </groups>
+  </test> <!-- Test -->
+</suite>
