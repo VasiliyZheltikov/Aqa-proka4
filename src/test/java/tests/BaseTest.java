@@ -28,17 +28,8 @@ public class BaseTest {
     public void setup() {
         Configuration.screenshots = true;
         Configuration.savePageSource = true;
-        ChromeOptions options = new ChromeOptions();
-        Map<String, Object> chromePrefs = new HashMap<>();
-        chromePrefs.put("credentials_enable_service", false);
-        chromePrefs.put("profile.password_manager_enabled", false);
-        chromePrefs.put("profile.default_content_setting_values.notifications", 2);
-        options.setExperimentalOption("prefs", chromePrefs);
-        // options.addArguments("--incognito"); // в этом режиме ругается на незащищённое подключение
-        options.addArguments("--disable-notifications");
-        options.addArguments("--disable-popup-blocking");
-        options.addArguments("--disable-infobars");
-        options.addArguments("--start-maximized");
+        Configuration.browserSize = null; // чтобы устранить конфликт с --start-maximized
+        Configuration.browserCapabilities = getOptions();
 
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
             .screenshots(true)
@@ -46,6 +37,20 @@ public class BaseTest {
 
         softAssert = new SoftAssert();
         formsPage = new FormsPage();
+    }
+
+    private static ChromeOptions getOptions() { // Настройки драйвера
+        ChromeOptions options = new ChromeOptions();
+        Map<String, Object> chromePrefs = new HashMap<>();
+        chromePrefs.put("credentials_enable_service", false);
+        chromePrefs.put("profile.password_manager_enabled", false);
+        chromePrefs.put("profile.default_content_setting_values.notifications", 2);
+        options.setExperimentalOption("prefs", chromePrefs);
+        options.addArguments("--disable-notifications");
+        options.addArguments("--disable-popup-blocking");
+        options.addArguments("--disable-infobars");
+        options.addArguments("--start-maximized"); //
+        return options;
     }
 
     @AfterMethod(alwaysRun = true, description = "Закрытие браузера")
