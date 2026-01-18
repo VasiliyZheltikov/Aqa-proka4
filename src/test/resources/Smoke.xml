@@ -15,4 +15,14 @@
       </run>
     </groups>
   </test> <!-- Test -->
+  <test name="Form With Validation">
+    <classes>
+      <class name="tests.ValidationFormTest"/>
+    </classes>
+    <groups>
+      <run>
+        <include name="smoke"/>
+      </run>
+    </groups>
+  </test> <!-- Test -->
 </suite>

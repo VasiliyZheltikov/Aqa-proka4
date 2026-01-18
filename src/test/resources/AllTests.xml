@@ -10,4 +10,9 @@
       <class name="tests.SimpleRegistrationFormTest"/>
     </classes>
   </test> <!-- Test -->
+  <test name="Form With Validation">
+    <classes>
+      <class name="tests.ValidationFormTest"/>
+    </classes>
+  </test> <!-- Test -->
 </suite>
