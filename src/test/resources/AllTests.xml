@@ -5,7 +5,7 @@
     <listener class-name="utils.TestListener"/>
     <listener class-name="utils.AnnotationTransformer"/>
   </listeners>
-  <test name="Full Regression Testing">
+  <test name="Simple Registration Form">
     <classes>
       <class name="tests.SimpleRegistrationFormTest"/>
     </classes>
