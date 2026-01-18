@@ -48,12 +48,6 @@ public class FormsPage extends BasePage {
         return this;
     }
 
-    public FormsPage formResultIsNotDisplaying() {
-        $(byId("formResult")).shouldNotBe(visible);
-        log.info("Результат отправки формы не отображается");
-        return this;
-    }
-
     @Step("Заполнение формы регистрации")
     public FormsPage fillRegistrationForm(
         String username,

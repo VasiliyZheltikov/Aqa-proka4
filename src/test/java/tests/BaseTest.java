@@ -1,14 +1,21 @@
 package tests;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.WebDriverRunner;
 import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.Attachment;
 import io.qameta.allure.selenide.AllureSelenide;
 import java.util.HashMap;
 import java.util.Map;
+import org.openqa.selenium.OutputType;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.testng.annotations.BeforeMethod;
+import org.testng.ITestResult;
+import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
-import pages.FormsPage;
+import pages.*;
+
+import static com.codeborne.selenide.Selenide.closeWebDriver;
 
 public class BaseTest {
 
@@ -37,6 +44,21 @@ public class BaseTest {
 
         softAssert = new SoftAssert();
         formsPage = new FormsPage();
+    }
 
+    @AfterMethod(alwaysRun = true)
+    public void tearDown(ITestResult result) {
+        if(ITestResult.FAILURE == result.getStatus()){
+            byte[] screen = Selenide.screenshot(OutputType.BYTES);
+            saveScreen("Screen",screen);
+        }
+        if(WebDriverRunner.getWebDriver()!=null) {
+            closeWebDriver();
+        }
+    }
+    //Создание скринов
+    @Attachment(value = "{name}", type = "image/png")
+    private static byte[] saveScreen(String name,byte[] image){
+        return image;
     }
 }

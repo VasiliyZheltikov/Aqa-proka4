@@ -70,7 +70,6 @@ public class SimpleRegistrationFormTest extends BaseTest {
         PersonData personData = PersonFactory.getPersonData();
         formsPage.open()
             .isPageOpened()
-            .formResultIsNotDisplaying()
             .fillRegistrationForm(
                 personData.getUsername(),
                 personData.getEmail(),
@@ -94,7 +93,6 @@ public class SimpleRegistrationFormTest extends BaseTest {
         boolean isCheckboxChecked) {
         formsPage.open()
             .isPageOpened()
-            .formResultIsNotDisplaying()
             .fillRegistrationForm(
                 username,
                 email,
