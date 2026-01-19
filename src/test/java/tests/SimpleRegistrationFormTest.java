@@ -107,6 +107,6 @@ public class SimpleRegistrationFormTest extends BaseTest {
                 isCheckboxChecked
             );
         Assert.assertFalse(simpleRegistrationFormPage.isFormResultDisplayed(),
-            "Отобразился статус отправки формы"); // статус отправки формы не отобразился
+            "Отобразился статус отправки формы");
     }
 }
