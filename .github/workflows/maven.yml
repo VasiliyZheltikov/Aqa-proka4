@@ -12,7 +12,7 @@ on:
   push:
     branches: [ "master" ]
   pull_request:
-    branches: [ "master", "develop" ]
+    branches: ["develop" ]
   schedule:
     - cron: '0 8 * * 1'
 
@@ -22,40 +22,40 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-    - name: Set up JDK 17
-      uses: actions/setup-java@v4
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-        cache: maven
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
 
-    - name: Run scheduled tests
-      if: github.event_name == 'schedule'
-      run: mvn clean test -Dselenide.headless=true -DsuiteXmlFile=Smoke.xml
+      - name: Run scheduled tests
+        if: github.event_name == 'schedule'
+        run: mvn clean test -Dselenide.headless=true -DsuiteXmlFile=Smoke.xml
 
-    - name: Run tests
-      if: github.event_name != 'schedule'
-      run: mvn clean test -Dselenide.headless=true
+      - name: Run tests
+        if: github.event_name != 'schedule'
+        run: mvn clean test -Dselenide.headless=true
 
-    - name: Get Allure history
-      uses: actions/checkout@v2
-      if: always()
-      continue-on-error: true
-      with:
-        ref: gh-pages
-        path: gh-pages
-    - name: Allure Report action from marketplace
-      uses: simple-elf/allure-report-action@master
-      if: always()
-      with:
-        allure_results: target/allure-results
-        allure_history: allure-history
-    - name: Deploy report to Github Pages
-      if: always()
-      uses: peaceiris/actions-gh-pages@v2
-      env:
-        PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        PUBLISH_BRANCH: gh-pages
-        PUBLISH_DIR: allure-history
+      - name: Get Allure history
+        uses: actions/checkout@v2
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+      - name: Allure Report action from marketplace
+        uses: simple-elf/allure-report-action@master
+        if: always()
+        with:
+          allure_results: target/allure-results
+          allure_history: allure-history
+      - name: Deploy report to Github Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v2
+        env:
+          PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PUBLISH_BRANCH: gh-pages
+          PUBLISH_DIR: allure-history

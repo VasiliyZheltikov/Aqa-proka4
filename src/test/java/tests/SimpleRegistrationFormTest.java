@@ -13,49 +13,48 @@ public class SimpleRegistrationFormTest extends BaseTest {
 
     @DataProvider(name = "Negative inputs data for register form")
     public Object[][] inputsValues() {
-        PersonData personData = PersonFactory.getPersonData();
         return new Object[][]{
             {
                 "", // without required Username
-                personData.getEmail(),
-                personData.getPassword(),
-                personData.getCountry(),
-                personData.isCountrySelected(),
-                personData.isCheckboxChecked()
+                PersonFactory.getPersonData().getEmail(),
+                PersonFactory.getPersonData().getPassword(),
+                PersonFactory.getPersonData().getCountry(),
+                PersonFactory.getPersonData().isCountrySelected(),
+                PersonFactory.getPersonData().isCheckboxChecked()
             },
 
             {
-                personData.getUsername(),
+                PersonFactory.getPersonData().getUsername(),
                 "", // without required Email
-                personData.getPassword(),
-                personData.getCountry(),
-                personData.isCountrySelected(),
-                personData.isCheckboxChecked()
+                PersonFactory.getPersonData().getPassword(),
+                PersonFactory.getPersonData().getCountry(),
+                PersonFactory.getPersonData().isCountrySelected(),
+                PersonFactory.getPersonData().isCheckboxChecked()
             },
 
             {
-                personData.getUsername(),
-                personData.getEmail(),
+                PersonFactory.getPersonData().getUsername(),
+                PersonFactory.getPersonData().getEmail(),
                 "", // without required Password
-                personData.getCountry(),
-                personData.isCountrySelected(),
-                personData.isCheckboxChecked()
+                PersonFactory.getPersonData().getCountry(),
+                PersonFactory.getPersonData().isCountrySelected(),
+                PersonFactory.getPersonData().isCheckboxChecked()
             },
             {
-                personData.getUsername(),
-                personData.getEmail(),
-                personData.getPassword(),
-                personData.getCountry(),
+                PersonFactory.getPersonData().getUsername(),
+                PersonFactory.getPersonData().getEmail(),
+                PersonFactory.getPersonData().getPassword(),
+                PersonFactory.getPersonData().getCountry(),
                 false, // without required Country
-                personData.isCheckboxChecked()
+                PersonFactory.getPersonData().isCheckboxChecked()
             },
 
             {
-                personData.getUsername(),
-                personData.getEmail(),
-                personData.getPassword(),
-                personData.getCountry(),
-                personData.isCountrySelected(),
+                PersonFactory.getPersonData().getUsername(),
+                PersonFactory.getPersonData().getEmail(),
+                PersonFactory.getPersonData().getPassword(),
+                PersonFactory.getPersonData().getCountry(),
+                PersonFactory.getPersonData().isCountrySelected(),
                 false // without required Checkbox
             },
         };
@@ -69,7 +68,7 @@ public class SimpleRegistrationFormTest extends BaseTest {
     @Description("Проверка успешной отправки формы со всеми заполненными полями")
     public void registerWithFullFilledForm() {
         PersonData personData = PersonFactory.getPersonData();
-        formsPage.open()
+        simpleRegistrationFormPage.open()
             .isPageOpened()
             .fillRegistrationForm(
                 personData.getUsername(),
@@ -79,7 +78,7 @@ public class SimpleRegistrationFormTest extends BaseTest {
                 personData.isCountrySelected(),
                 personData.isCheckboxChecked()
             );
-        Assert.assertTrue(formsPage.isFormResultDisplayed(),
+        Assert.assertTrue(simpleRegistrationFormPage.isFormResultDisplayed(),
             "Ошибка при отправке формы регистрации");
     }
 
@@ -97,7 +96,7 @@ public class SimpleRegistrationFormTest extends BaseTest {
         String country,
         boolean isCountrySelected,
         boolean isCheckboxChecked) {
-        formsPage.open()
+        simpleRegistrationFormPage.open()
             .isPageOpened()
             .fillRegistrationForm(
                 username,
@@ -107,7 +106,7 @@ public class SimpleRegistrationFormTest extends BaseTest {
                 isCountrySelected,
                 isCheckboxChecked
             );
-        Assert.assertFalse(formsPage.isFormResultDisplayed(),
-            "Отобразился статус отправки формы"); // статус отправки формы не отобразился
+        Assert.assertFalse(simpleRegistrationFormPage.isFormResultDisplayed(),
+            "Отобразился статус отправки формы");
     }
 }
