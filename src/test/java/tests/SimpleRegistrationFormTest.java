@@ -22,7 +22,6 @@ public class SimpleRegistrationFormTest extends BaseTest {
                 PersonFactory.getPersonData().isCountrySelected(),
                 PersonFactory.getPersonData().isCheckboxChecked()
             },
-
             {
                 PersonFactory.getPersonData().getUsername(),
                 "", // without required Email
@@ -31,7 +30,6 @@ public class SimpleRegistrationFormTest extends BaseTest {
                 PersonFactory.getPersonData().isCountrySelected(),
                 PersonFactory.getPersonData().isCheckboxChecked()
             },
-
             {
                 PersonFactory.getPersonData().getUsername(),
                 PersonFactory.getPersonData().getEmail(),
@@ -48,7 +46,6 @@ public class SimpleRegistrationFormTest extends BaseTest {
                 false, // without required Country
                 PersonFactory.getPersonData().isCheckboxChecked()
             },
-
             {
                 PersonFactory.getPersonData().getUsername(),
                 PersonFactory.getPersonData().getEmail(),
@@ -56,7 +53,7 @@ public class SimpleRegistrationFormTest extends BaseTest {
                 PersonFactory.getPersonData().getCountry(),
                 PersonFactory.getPersonData().isCountrySelected(),
                 false // without required Checkbox
-            },
+            }
         };
     }
 
