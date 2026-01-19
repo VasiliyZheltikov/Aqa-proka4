@@ -23,4 +23,6 @@ public class PersonData {
     private boolean isCountrySelected = true;
     @Builder.Default
     private boolean isCheckboxChecked = true;
+    @Builder.Default
+    private String phoneNumber = null;
 }
