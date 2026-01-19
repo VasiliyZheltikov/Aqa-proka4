@@ -2,6 +2,7 @@ package dto;
 
 import com.github.javafaker.Faker;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class PersonFactory {
 
@@ -14,11 +15,13 @@ public class PersonFactory {
 
     public static PersonData getPersonData() {
         Faker faker = new Faker();
+        Faker ruFaker = new Faker(new Locale("ru"));
         return PersonData.builder()
             .username(faker.name().username())
             .email(faker.internet().emailAddress())
             .password(faker.internet().password())
             .country(faker.options().nextElement(countries))
+            .phoneNumber(ruFaker.phoneNumber().cellPhone())
             .build();
     }
 }
