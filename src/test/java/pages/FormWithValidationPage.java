@@ -49,7 +49,8 @@ public class FormWithValidationPage extends BasePage {
     public FormWithValidationPage fillRegistrationForm(
         String username,
         String email,
-        String password
+        String password,
+        String confirmPassword
     ) {
         log.info("Заполнение поля Username...");
         new Inputs(USERNAME).write(username);
@@ -60,8 +61,9 @@ public class FormWithValidationPage extends BasePage {
         log.info("Заполнение поля Password...");
         new Inputs(PASSWORD).write(password);
         log.info("Поле Password заполнено значением: {}", password);
-        new Inputs(CONFIRM_PASSWORD).write(password);
-        log.info("Поле Подтвердите Password заполнено значением: {}", password);
+        log.info("Заполнение поля Подтвердите Password...");
+        new Inputs(CONFIRM_PASSWORD).write(confirmPassword);
+        log.info("Поле Подтвердите Password заполнено значением: {}", confirmPassword);
         log.info("Нажатие на кнопку отправки формы...");
         new Button(VALIDATE_AND_SEND_BUTTON).clickButton();
         log.info("Кнопка отправки формы нажата");
