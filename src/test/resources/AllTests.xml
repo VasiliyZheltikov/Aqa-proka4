@@ -5,14 +5,9 @@
     <listener class-name="utils.TestListener"/>
     <listener class-name="utils.AnnotationTransformer"/>
   </listeners>
-  <test name="Simple Registration Form">
+  <test name="Forms Tests">
     <classes>
-      <class name="tests.SimpleRegistrationFormTest"/>
-    </classes>
-  </test> <!-- Test -->
-  <test name="Form With Validation">
-    <classes>
-      <class name="tests.ValidationFormTest"/>
+      <class name="tests.FormsTests"/>
     </classes>
   </test> <!-- Test -->
 </suite>

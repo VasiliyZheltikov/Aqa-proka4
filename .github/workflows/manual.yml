@@ -55,10 +55,13 @@ jobs:
         run: |
             case "${{ github.event.inputs.test-suite }}" in
               "All Tests")
-                mvn clean test -Dselenide.headless=true -DsuiteXmlFile=AllTests.xml
+                mvn clean test -Dselenide.headless=true -DsuiteXmlFile=src/test/resources/AllTests.xml
                 ;;
               "Smoke Tests")
-                mvn clean test -Dselenide.headless=true -DsuiteXmlFile=Smoke.xml
+                mvn clean test -Dselenide.headless=true -DsuiteXmlFile=src/test/resources/Smoke.xml
+                ;;
+              "Negative Tests")
+                mvn clean test -Dselenide.headless=true -DsuiteXmlFile=src/test/resources/Negative.xml
                 ;;
             esac
 
