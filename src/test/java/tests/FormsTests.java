@@ -247,7 +247,7 @@ public class FormsTests extends BaseTest {
     )
     @Feature("Динамическая форма регистрации")
     @Description("Добавление и удаление поля в динамической форме регистрации")
-    public void addEmailFieldInDynamicForm(
+    public void addAndDeleteFieldsInDynamicForm(
         String addingFieldButtonName,
         String fieldLabel
     ) {
