@@ -242,7 +242,7 @@ public class FormsTests extends BaseTest {
 
     @Test(
         testName = "Добавление и удаление полей в динамической форме регистрации",
-        description = "Добавление полей в динамической форме регистрации",
+        description = "Добавление и удаление полей в динамической форме регистрации",
         dataProvider = "Adding and deleting fields in dynamic form"
     )
     @Feature("Динамическая форма регистрации")
