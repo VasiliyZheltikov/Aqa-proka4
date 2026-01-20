@@ -1,1 +1,1 @@
-{"total":0,"items":[]}
+{"total":2,"items":[{"uid":"e5ab912b056d66b050dc57ad1746965c","name":"Простая форма регистрации","statistic":{"failed":0,"broken":0,"skipped":0,"passed":1,"unknown":0,"total":1}},{"uid":"c03c174548b5d8179da3b9f41f3b7195","name":"Форма с валидацией","statistic":{"failed":0,"broken":0,"skipped":0,"passed":1,"unknown":0,"total":1}}]}
