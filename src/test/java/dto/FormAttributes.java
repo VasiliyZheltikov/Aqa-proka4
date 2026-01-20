@@ -26,5 +26,11 @@ public class FormAttributes {
     @Builder.Default
     private String checkboxLabel = null;
     @Builder.Default
+    private String phoneLabel = null;
+    @Builder.Default
     private String buttonName = null;
+    @Builder.Default
+    private String addEmailButtonName = null;
+    @Builder.Default
+    private String addPhoneButtonName = null;
 }

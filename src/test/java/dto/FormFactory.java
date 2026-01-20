@@ -24,4 +24,15 @@ public class FormFactory {
             .buttonName("отправить")
             .build();
     }
+
+    public static FormAttributes getDynamicFormAttributes() {
+        return FormAttributes.builder()
+            .formName("Динамическая форма")
+            .usernameLabel("Ваше Имя")
+            .emailLabel("Email адреса")
+            .phoneLabel("Номера телефонов")
+            .addEmailButtonName("Добавить email")
+            .addPhoneButtonName("Добавить телефон")
+            .build();
+    }
 }

@@ -16,7 +16,8 @@ public class Inputs {
 
     private WebElement findInputOnFormByLabel() {
         return $x(String.format(
-            "//*[contains(text(), '%s')]//ancestor::div[3]//label[contains(text(), '%s')]//ancestor::div[1]//input",
+            "//*[contains(text(), '%s')]//ancestor::div[3]"
+                + "//label[contains(text(), '%s')]//ancestor::div[1]//input",
             formName,
             label));
     }
@@ -26,8 +27,18 @@ public class Inputs {
     }
 
     public WebElement findError() {
-        return $x(String.format("//*[contains(text(), '%s')]//ancestor::div[3]//label[contains(text(), '%s')]//ancestor::div[1]//p",
+        return $x(String.format("//*[contains(text(), '%s')]//ancestor::div[3]//"
+                + "label[contains(text(), '%s')]//ancestor::div[1]//p",
             formName,
             label));
+    }
+
+    public int count() {
+        return $$x(String.format(
+            "//*[contains(text(), '%s')]//ancestor::div[3]"
+                + "//label[contains(text(), '%s')]//ancestor::div[2]//input",
+            formName,
+            label))
+            .size();
     }
 }

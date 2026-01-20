@@ -6,7 +6,7 @@ import dto.FormFactory;
 import dto.PersonData;
 import dto.PersonFactory;
 import io.qameta.allure.Feature;
-import jdk.jfr.Description;
+import io.qameta.allure.Description;
 import lombok.extern.log4j.Log4j2;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -120,6 +120,15 @@ public class FormsTests extends BaseTest {
         };
     }
 
+    @DataProvider(name = "Adding and deleting fields in dynamic form")
+    public Object[][] addingFieldsButtonsInDynamicForm() {
+        FormAttributes formAttributes = FormFactory.getDynamicFormAttributes();
+        return new Object[][]{
+            {formAttributes.getAddEmailButtonName(), formAttributes.getEmailLabel()},
+            {formAttributes.getAddPhoneButtonName(), formAttributes.getPhoneLabel()}
+        };
+    }
+
     @Test(
         testName = "Успешная отправка простой формы регистрации",
         description = "Успешная отправка простой формы регистрации",
@@ -229,5 +238,29 @@ public class FormsTests extends BaseTest {
             fieldErrorText,
             String.format("Текст сообщения об ошибке валидации в поле '%s' отличается", notValidatedField));
         softAssert.assertAll();
+    }
+
+    @Test(
+        testName = "Добавление и удаление полей в динамической форме регистрации",
+        description = "Добавление и удаление полей в динамической форме регистрации",
+        dataProvider = "Adding and deleting fields in dynamic form"
+    )
+    @Feature("Динамическая форма регистрации")
+    @Description("Добавление и удаление поля в динамической форме регистрации")
+    public void addEmailFieldInDynamicForm(
+        String addingFieldButtonName,
+        String fieldLabel
+    ) {
+        FormAttributes form = FormFactory.getDynamicFormAttributes();
+        formsPage.open()
+            .isPageOpened()
+            .pushToButton(form.getFormName(), addingFieldButtonName);
+        softAssert.assertEquals(formsPage.countFieldsInForm(form.getFormName(), fieldLabel),
+            2,
+            String.format("Поле '%s' не добавлено", fieldLabel));
+        formsPage.pushToDeleteInputButton(form.getFormName(),fieldLabel);
+        softAssert.assertEquals(formsPage.countFieldsInForm(form.getFormName(),fieldLabel),
+            1,
+            String.format("Поле %s не удалено", fieldLabel));
     }
 }
