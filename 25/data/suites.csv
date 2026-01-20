@@ -1,0 +1,3 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","1852","Проверка успешной отправки формы","Smoke Tests","Tue Jan 20 08:26:37 UTC 2026","passed","Tue Jan 20 08:26:39 UTC 2026","tests.ValidationFormTest","Form With Validation","tests.ValidationFormTest","sendFormWithValidatedFilledFields"
+"","5435","Проверка успешной отправки формы","Smoke Tests","Tue Jan 20 08:26:31 UTC 2026","passed","Tue Jan 20 08:26:37 UTC 2026","tests.SimpleRegistrationFormTest","Simple Registration Form","tests.SimpleRegistrationFormTest","registerWithFullFilledForm"
