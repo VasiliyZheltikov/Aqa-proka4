@@ -6,7 +6,7 @@ import dto.FormFactory;
 import dto.PersonData;
 import dto.PersonFactory;
 import io.qameta.allure.Feature;
-import jdk.jfr.Description;
+import io.qameta.allure.Description;
 import lombok.extern.log4j.Log4j2;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -117,6 +117,15 @@ public class FormsTests extends BaseTest {
                 formAttributes.getConfirmPasswordLabel(),
                 "Пароли не совпадают"
             }
+        };
+    }
+
+    @DataProvider(name = "Adding and deleting fields in dynamic form")
+    public Object[][] addingFieldsButtonsInDynamicForm() {
+        FormAttributes formAttributes = FormFactory.getDynamicFormAttributes();
+        return new Object[][]{
+            {formAttributes.getAddEmailButtonName(), formAttributes.getEmailLabel()},
+            {formAttributes.getAddPhoneButtonName(), formAttributes.getPhoneLabel()}
         };
     }
 
@@ -232,35 +241,26 @@ public class FormsTests extends BaseTest {
     }
 
     @Test(
-        testName = "Добавление поля Email в динамической форме регистрации",
-        description = "Добавление поля Email в динамической форме регистрации"
+        testName = "Добавление и удаление полей в динамической форме регистрации",
+        description = "Добавление и удаление полей в динамической форме регистрации",
+        dataProvider = "Adding and deleting fields in dynamic form"
     )
     @Feature("Динамическая форма регистрации")
-    @Description("Добавление поля Email в динамической форме регистрации")
-    public void addEmailFieldInDynamicForm() {
+    @Description("Добавление и удаление поля в динамической форме регистрации")
+    public void addEmailFieldInDynamicForm(
+        String addingFieldButtonName,
+        String fieldLabel
+    ) {
         FormAttributes form = FormFactory.getDynamicFormAttributes();
         formsPage.open()
             .isPageOpened()
-            .pushToButton(form.getFormName(), form.getAddEmailButtonName());
-        Assert.assertEquals(formsPage.countFieldsInForm(form.getFormName(), form.getEmailLabel()),
+            .pushToButton(form.getFormName(), addingFieldButtonName);
+        softAssert.assertEquals(formsPage.countFieldsInForm(form.getFormName(), fieldLabel),
             2,
-            "Поле Email не добавлено");
-    }
-
-    @Test(
-        testName = "Удаление поля Email в динамической форме регистрации",
-        description = "Удаление поля Email в динамической форме регистрации",
-        dependsOnMethods = {"addEmailFieldInDynamicForm"}
-    )
-    @Feature("Динамическая форма регистрации")
-    @Description("Удаление поля Email в динамической форме регистрации")
-    public void deleteEmailFieldInDynamicForm() {
-        FormAttributes form = FormFactory.getDynamicFormAttributes();
-        formsPage.open()
-            .isPageOpened()
-            .pushToDeleteInputButton(form.getFormName(), form.getEmailLabel());
-        Assert.assertEquals(formsPage.countFieldsInForm(form.getFormName(), form.getEmailLabel()),
+            String.format("Поле '%s' не добавлено", fieldLabel));
+        formsPage.pushToDeleteInputButton(form.getFormName(),fieldLabel);
+        softAssert.assertEquals(formsPage.countFieldsInForm(form.getFormName(),fieldLabel),
             1,
-            "Поле Email не удалено");
+            String.format("Поле %s не удалено", fieldLabel));
     }
 }
