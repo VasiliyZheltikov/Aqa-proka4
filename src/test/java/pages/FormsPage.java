@@ -7,7 +7,6 @@ import static com.codeborne.selenide.Selenide.$;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import wrappers.Button;
 import wrappers.Checkboxes;
@@ -69,9 +68,14 @@ public class FormsPage extends BasePage {
         log.info("Кнопка {} нажата", buttonName);
     }
 
-    @Step("Нахождение сообщения об ошибке под полем {labelName} в форме {formName}")
-    public WebElement getErrorMessageWebElement(String formName, String labelName) {
-        return new Inputs(formName, labelName).findError();
+    @Step("Проверка отображения сообщения об ошибке под полем {labelName} в форме {formName}")
+    public boolean isValidationMessageDisplayed(String formName, String labelName) {
+        return new Inputs(formName, labelName).findError().isDisplayed();
+    }
+
+    @Step("Проверка текста сообщения об ошибке под полем {labelName} в форме {formName}")
+    public String getValidationMessageText(String formName, String labelName) {
+        return new Inputs(formName, labelName).findError().getText();
     }
 
     @Step("Проверка отображения уведомления о статусе отправке формы")
