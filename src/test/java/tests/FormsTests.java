@@ -223,9 +223,9 @@ public class FormsTests extends BaseTest {
         softAssert.assertTrue(
             formsPage.isFormResultDisplayed("Форма содержит ошибки. Исправьте их и попробуйте снова."),
             "Результат отправки формы не отобразился");
-        softAssert.assertTrue(formsPage.getErrorMessageWebElement(form.getFormName(), notValidatedField).isDisplayed(),
+        softAssert.assertTrue(formsPage.isValidationMessageDisplayed(form.getFormName(), notValidatedField),
             "Не отобразился текст ошибки под непрошедшим валидацию полем");
-        softAssert.assertEquals(formsPage.getErrorMessageWebElement(form.getFormName(), notValidatedField).getText(),
+        softAssert.assertEquals(formsPage.getValidationMessageText(form.getFormName(), notValidatedField),
             fieldErrorText,
             String.format("Текст сообщения об ошибке валидации в поле '%s' отличается", notValidatedField));
         softAssert.assertAll();
