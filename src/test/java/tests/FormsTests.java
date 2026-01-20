@@ -230,4 +230,37 @@ public class FormsTests extends BaseTest {
             String.format("Текст сообщения об ошибке валидации в поле '%s' отличается", notValidatedField));
         softAssert.assertAll();
     }
+
+    @Test(
+        testName = "Добавление поля Email в динамической форме регистрации",
+        description = "Добавление поля Email в динамической форме регистрации"
+    )
+    @Feature("Динамическая форма регистрации")
+    @Description("Добавление поля Email в динамической форме регистрации")
+    public void addEmailFieldInDynamicForm() {
+        FormAttributes form = FormFactory.getDynamicFormAttributes();
+        formsPage.open()
+            .isPageOpened()
+            .pushToButton(form.getFormName(), form.getAddEmailButtonName());
+        Assert.assertEquals(formsPage.countFieldsInForm(form.getFormName(), form.getEmailLabel()),
+            2,
+            "Поле Email не добавлено");
+    }
+
+    @Test(
+        testName = "Удаление поля Email в динамической форме регистрации",
+        description = "Удаление поля Email в динамической форме регистрации",
+        dependsOnMethods = {"addEmailFieldInDynamicForm"}
+    )
+    @Feature("Динамическая форма регистрации")
+    @Description("Удаление поля Email в динамической форме регистрации")
+    public void deleteEmailFieldInDynamicForm() {
+        FormAttributes form = FormFactory.getDynamicFormAttributes();
+        formsPage.open()
+            .isPageOpened()
+            .pushToDeleteInputButton(form.getFormName(), form.getEmailLabel());
+        Assert.assertEquals(formsPage.countFieldsInForm(form.getFormName(), form.getEmailLabel()),
+            1,
+            "Поле Email не удалено");
+    }
 }

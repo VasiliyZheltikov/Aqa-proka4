@@ -1,29 +1,30 @@
 package wrappers;
 
-import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
-
-import org.openqa.selenium.WebElement;
 
 public class Button {
 
     String formName;
-    String buttonName;
 
-    public Button(String formName, String buttonName) {
+    public Button(String formName) {
         this.formName = formName;
-        this.buttonName = buttonName;
     }
 
-    private WebElement findButtonOnFormByName() {
-        return $x(String.format(
-            "//*[contains(text(), '%s')]//ancestor::div[3]//button[contains(normalize-space(), '%s')]",
+    public void clickButtonOnFormByButtonName(String buttonName) {
+        $x(String.format(
+            "//*[contains(text(), '%s')]//ancestor::div[3]"
+                + "//button[contains(normalize-space(), '%s')]",
             formName,
-            buttonName));
+            buttonName))
+            .click();
     }
 
-    public void clickButton() {
-        $(findButtonOnFormByName()).click();
+    public void clickButtonOnFormByFieldLabelName(String fieldLabelName) {
+        $x(String.format(
+            "//*[contains(text(), '%s')]//ancestor::div[3]"
+                + "//label[contains(text(), '%s')]//ancestor::div[2]//input//parent::div//button",
+            formName,
+            fieldLabelName))
+            .click();
     }
-
 }

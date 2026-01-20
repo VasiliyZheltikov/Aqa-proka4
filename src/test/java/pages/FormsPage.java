@@ -62,10 +62,19 @@ public class FormsPage extends BasePage {
     }
 
     @Step("Нажатие кнопки {buttonName} в форме {formName}")
-    public void pushToButton(String formName, String buttonName) {
+    public FormsPage pushToButton(String formName, String buttonName) {
         log.info("Нажатие кнопки {}...", buttonName);
-        new Button(formName, buttonName).clickButton();
+        new Button(formName).clickButtonOnFormByButtonName(buttonName);
         log.info("Кнопка {} нажата", buttonName);
+    return this;
+    }
+
+    @Step("Нажатие кнопки удаления поля {labelName} в форме {formName}")
+    public FormsPage pushToDeleteInputButton(String formName, String labelName) {
+        log.info("Нажатие кнопки удаления поля {}...", labelName);
+        new Button(formName).clickButtonOnFormByFieldLabelName(labelName);
+        log.info("Кнопка удаления поля {} нажата", labelName);
+        return this;
     }
 
     @Step("Проверка отображения сообщения об ошибке под полем {labelName} в форме {formName}")
@@ -81,5 +90,10 @@ public class FormsPage extends BasePage {
     @Step("Проверка отображения уведомления о статусе отправке формы")
     public boolean isFormResultDisplayed(String resultMessage) {
         return $(withText(resultMessage)).isDisplayed();
+    }
+
+    @Step("Подсчёт количества полей {labelName} в форме {formName}")
+    public int countFieldsInForm(String formName, String labelName) {
+        return new Inputs(formName,labelName).count();
     }
 }
