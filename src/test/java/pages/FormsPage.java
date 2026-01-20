@@ -79,21 +79,25 @@ public class FormsPage extends BasePage {
 
     @Step("Проверка отображения сообщения об ошибке под полем {labelName} в форме {formName}")
     public boolean isValidationMessageDisplayed(String formName, String labelName) {
+        log.info("Проверка отображения сообщения об ошибке валидации поля {}", labelName);
         return new Inputs(formName, labelName).findError().isDisplayed();
     }
 
     @Step("Проверка текста сообщения об ошибке под полем {labelName} в форме {formName}")
     public String getValidationMessageText(String formName, String labelName) {
+        log.info("Проверка текста ошибки валидации поля {}", labelName);
         return new Inputs(formName, labelName).findError().getText();
     }
 
     @Step("Проверка отображения уведомления о статусе отправке формы")
     public boolean isFormResultDisplayed(String resultMessage) {
+        log.info("Проверка отображения результата отправки формы");
         return $(withText(resultMessage)).isDisplayed();
     }
 
     @Step("Подсчёт количества полей {labelName} в форме {formName}")
     public int countFieldsInForm(String formName, String labelName) {
+        log.info("Подсчёт количества полей {}", labelName);
         return new Inputs(formName,labelName).count();
     }
 }
