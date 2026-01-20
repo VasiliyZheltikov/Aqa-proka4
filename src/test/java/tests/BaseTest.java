@@ -22,8 +22,7 @@ import static com.codeborne.selenide.Selenide.closeWebDriver;
 public class BaseTest {
 
     SoftAssert softAssert;
-    SimpleRegistrationFormPage simpleRegistrationFormPage;
-    FormWithValidationPage formWithValidationPage;
+    FormsPage formsPage;
 
     @BeforeMethod(alwaysRun = true, description = "Настройка драйвера")
     public void setup() {
@@ -37,8 +36,7 @@ public class BaseTest {
             .savePageSource(true));
 
         softAssert = new SoftAssert();
-        simpleRegistrationFormPage = new SimpleRegistrationFormPage();
-        formWithValidationPage = new FormWithValidationPage();
+        formsPage = new FormsPage();
     }
 
     private static ChromeOptions getOptions() { // Настройки драйвера
@@ -57,17 +55,18 @@ public class BaseTest {
 
     @AfterMethod(alwaysRun = true, description = "Закрытие браузера")
     public void tearDown(ITestResult result) {
-        if(ITestResult.FAILURE == result.getStatus()){
+        if (ITestResult.FAILURE == result.getStatus()) {
             byte[] screen = Selenide.screenshot(OutputType.BYTES);
-            saveScreen("Screen",screen);
+            saveScreen("Screen", screen);
         }
-        if(WebDriverRunner.getWebDriver()!=null) {
+        if (WebDriverRunner.getWebDriver() != null) {
             closeWebDriver();
         }
     }
+
     //Создание скринов
     @Attachment(value = "{name}", type = "image/png")
-    private static byte[] saveScreen(String name,byte[] image){
+    private static byte[] saveScreen(String name, byte[] image) {
         return image;
     }
 }

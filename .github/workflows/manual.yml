@@ -60,6 +60,9 @@ jobs:
               "Smoke Tests")
                 mvn clean test -Dselenide.headless=true -DsuiteXmlFile=src/test/resources/Smoke.xml
                 ;;
+              "Negative Tests")
+                mvn clean test -Dselenide.headless=true -DsuiteXmlFile=src/test/resources/Negative.xml
+                ;;
             esac
 
       - name: Get Allure history

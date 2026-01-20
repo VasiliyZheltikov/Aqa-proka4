@@ -21,6 +21,8 @@ public class PersonFactory {
             .email(faker.internet().emailAddress())
             .password(faker.internet().password())
             .country(faker.options().nextElement(countries))
+            .isCountrySelected(true)
+            .isCheckboxChecked(true)
             .phoneNumber(ruFaker.phoneNumber().cellPhone())
             .build();
     }
