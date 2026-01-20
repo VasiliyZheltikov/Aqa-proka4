@@ -12,15 +12,17 @@ import lombok.NoArgsConstructor;
 public class PersonData {
 
     @Builder.Default
-    private String username = "UsernameTest";
+    private String username = null;
     @Builder.Default
-    private String email = "EmailTest";
+    private String email = null;
     @Builder.Default
-    private String password = "PasswordTest";
+    private String password = null;
     @Builder.Default
-    private String country = "Russia";
+    private String country = null;
     @Builder.Default
-    private boolean isCountrySelected = true;
+    private boolean isCountrySelected = false;
     @Builder.Default
-    private boolean isCheckboxChecked = true;
+    private boolean isCheckboxChecked = false;
+    @Builder.Default
+    private String phoneNumber = null;
 }

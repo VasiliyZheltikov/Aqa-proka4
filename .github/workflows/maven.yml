@@ -9,8 +9,6 @@
 name: Aqa-proka CI
 
 on:
-  push:
-    branches: [ "master" ]
   pull_request:
     branches: ["develop" ]
   schedule:

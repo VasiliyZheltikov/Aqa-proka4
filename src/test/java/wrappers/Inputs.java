@@ -1,18 +1,33 @@
 package wrappers;
 
-import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.*;
 
 import org.openqa.selenium.WebElement;
 
 public class Inputs {
 
-    WebElement webElement;
+    String formName;
+    String label;
 
-    public Inputs(WebElement webElement) {
-        this.webElement = webElement;
+    public Inputs(String formName, String label) {
+        this.formName = formName;
+        this.label = label;
+    }
+
+    private WebElement findInputOnFormByLabel() {
+        return $x(String.format(
+            "//*[contains(text(), '%s')]//ancestor::div[3]//label[contains(text(), '%s')]//ancestor::div[1]//input",
+            formName,
+            label));
     }
 
     public void write(String text) {
-        $(webElement).val(text);
+        $(findInputOnFormByLabel()).val(text);
+    }
+
+    public WebElement findError() {
+        return $x(String.format("//*[contains(text(), '%s')]//ancestor::div[3]//label[contains(text(), '%s')]//ancestor::div[1]//p",
+            formName,
+            label));
     }
 }
