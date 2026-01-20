@@ -6,13 +6,11 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Aqa-proka CI
+name: Aqa-proka CI Scheduled
 
 on:
-  pull_request:
-    branches: ["develop" ]
   schedule:
-    - cron: '0 8 * * 2'
+    - cron: '20 12 * * 2'
 
 jobs:
   build:
@@ -29,8 +27,8 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Run tests
-        run: mvn clean test -Dselenide.headless=true
+      - name: Run scheduled tests (Smoke)
+        run: mvn clean test -Dselenide.headless=true -DsuiteXmlFile=src/test/resources/Smoke.xml
 
       - name: Get Allure history
         uses: actions/checkout@v2
