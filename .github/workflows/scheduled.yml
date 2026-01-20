@@ -6,7 +6,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Aqa-proka CI
+name: Aqa-proka CI Scheduled
 
 on:
   schedule:
