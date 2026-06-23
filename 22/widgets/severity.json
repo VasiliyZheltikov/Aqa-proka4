@@ -1,1 +1,0 @@
-[{"uid":"dc2efaa1f640aa64","name":"Успешная отправка формы регистрации с валидацией","time":{"start":1781630763394,"stop":1781630765572,"duration":2178},"status":"passed","severity":"normal"},{"uid":"cc988bce2f2fd545","name":"Успешная отправка простой формы регистрации","time":{"start":1781630752228,"stop":1781630763272,"duration":11044},"status":"passed","severity":"normal"}]
